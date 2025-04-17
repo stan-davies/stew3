@@ -60,7 +60,8 @@ _psid:
         ldp     x3, x4, [sp], 16
         ldp     x0, x1, [sp], 16
 
-        str     [x0, x5], [x3, x4]
+        ldr     x6, [x3, x4]
+        str     x6, [x3, x4]
         add     x4, x4, 1
 
 _ext:
