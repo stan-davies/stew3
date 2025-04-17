@@ -28,6 +28,6 @@ _main:
 
         .data
 _fmt:   .asciz  "got: '%ld'\n"
-_exp:   .ascii  "3+(2-4)/6*3"
+_exp:   .ascii  "3*(2-4)-6+3"
 
         .end

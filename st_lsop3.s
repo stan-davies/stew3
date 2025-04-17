@@ -9,21 +9,17 @@
 
 _st_lsop:
         stp     x29, x30, [sp, -16]!
-        str     x0, [sp, -16]!
 
         mov     x4, xzr
 
         b       5f
 
-1:      ldr     x0, [sp], 16
-        ldr     x3, [x0, x2]
+1:      ldr     x3, [x0, x2]
         and     x3, x3, 0xFF
-        str     x0, [sp, -16]!
-        mov     x0, x3
 
-        cmp     x0, 41
+        cmp     x3, 41
         beq     2f
-        cmp     x0, 40
+        cmp     x3, 40
         beq     3f
 
 //        stp     x2, x1, [sp, -16]!
@@ -37,10 +33,10 @@ _st_lsop:
 //        ldp     x2, x1, [sp], 16
 
         bl      _st_p
-        add     x0, x0, x4
-        cmp     x0, x4
+        add     x3, x3, x4
+        cmp     x3, x4
         blt     4f
-        cmp     x0, 1
+        cmp     x3, 1
         beq     6f
         b       4f
 
@@ -52,8 +48,6 @@ _st_lsop:
         bge     1b
 
 6:
-        add     sp, sp, 16
-//        ldr     x0, [sp], 16
         ldp     x29, x30, [sp], 16
         mov     x0, x2
         ret
