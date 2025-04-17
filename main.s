@@ -12,7 +12,7 @@ _main:
 
         adrp    x1, _exp@PAGE
         add     x1, x1, _exp@PAGEOFF
-        ldr     x0, [x1, x0]
+//        ldr     x0, [x1, x0]
         str     x0, [sp, -16]!          // Put data onto stack as paramter
         adrp    x0, _fmt@PAGE
         add     x0, x0, _fmt@PAGEOFF
@@ -27,7 +27,7 @@ _main:
         ret
 
         .data
-_fmt:   .asciz  "got: '%c'\n"
-_exp:   .ascii  "3+(2-4)*6/3"
+_fmt:   .asciz  "got: '%ld'\n"
+_exp:   .ascii  "3+(2-4)/6*3"
 
         .end
