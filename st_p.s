@@ -1,29 +1,28 @@
         .global _st_p
         .text
 
-// x0 takes the ASCII code of the operator to get the precedence of. These can
+// x3 takes the ASCII code of the operator to get the precedence of. These can
 // be '+' (43), '-' (45), '*', (42) or '/' (47).
 
-_st_p:
-        stp     x29, x30, [sp, -16]!
+// It is x3 rather than x0 because that is more convenient for st_lsop.
 
+_st_p:
         cmp     x3, 43
-        beq     1f
+        beq     _min
         cmp     x3, 45
-        beq     1f
+        beq     _min
         cmp     x3, 42
-        beq     2f
+        beq     _maj
         cmp     x3, 47
-        beq     2f
+        beq     _maj
 
         mov     x3, -1
-        b       3f
+        b       _ext
 
-1:      mov     x3, 1
-        b       3f
-2:      mov     x3, 2
+_min:   mov     x3, 1
+        b       _ext
+_maj:   mov     x3, 2
 
-3:      ldp     x29, x30, [sp], 16
-        ret
+_ext:   ret
 
         .end

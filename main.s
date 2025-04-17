@@ -7,7 +7,7 @@ _main:
         adrp    x0, _exp@PAGE
         add     x0, x0, _exp@PAGEOFF
         mov     x1, 0
-        mov     x2, 10
+        mov     x2, 12
         bl      _st_lsop
 
         adrp    x1, _exp@PAGE
@@ -28,6 +28,6 @@ _main:
 
         .data
 _fmt:   .asciz  "got: '%ld'\n"
-_exp:   .ascii  "3*(2-4)-6+3"
+_exp:   .ascii  "3*(2-4)*(6/3)"
 
         .end
