@@ -1,68 +1,60 @@
         .global _st_lsop
         .text
 
-// x0 is pointer to buffer, later used as current character and then finally
-// as the returned index
-// x1 is start offset (as an index, e.g. 0)
-// x2 is end offset (as an index, e.g. len - 1)
-// x4 will be br_o
-// x5 will be sig
-// x6 will be l_sig
-// x7 will be lsoi
+// x0 is expression string
+// x1 is start index
+// x2 is end index
+// x3 is the current character and then precedence of it
+// x4 is the br_o
+// x5 is l_sig
+// x6 is lsoi
 
 _st_lsop:
         stp     x29, x30, [sp, -16]!
-        str     x0, [sp, -16]!
 
-        mov     x6, 10
-        mov     x7, -1
         mov     x4, xzr
+        mov     x5, 10
+        mov     x6, -1
 
-        add     x1, x0, x1, lsl 3
-        add     x2, x0, x2, lsl 3
-        b       5f
+        b       _cond
 
-1:      ldr     x0, [x2]
+_loop:  ldr     x3, [x0, x2]
+        and     x3, x3, 0xFF
 
-        cmp     x0, 40
-        beq     2f
-        cmp     x0, 41
-        beq     3f
+        cmp     x3, 41
+        beq     _rb
+        cmp     x3, 40
+        beq     _lb
 
-// This function *only* uses `x0`. Currently, `x0` is the character that we are
-// looking at. We don't need this value again, so we will just let it go.
         bl      _st_p
+        add     x3, x3, x4
 
-        cmp     x0, -1
-        beq     4f
+        cmp     x3, x4
+        blt     _cont
 
-        add     x5, x0, x4
+        cmp     x3, 1
+        beq     _brk
 
-        cmp     x5, 1
-        beq     6f
-        cmp     x5, x6
-        bge     4f
-        mov     x6, x5
-        mov     x7, x2
-        b       4f
+        cmp     x3, x5
+        bge     _cont
+        mov     x5, x3
+        mov     x6, x2
+        b       _cont
+ 
+_rb:    add     x4, x4, 2
+        b       _cont
+_lb:    sub     x4, x4, 2
 
-2:      sub     x4, x4, 2
-        b       4f
-3:      add     x4, x4, 2
+_cont:  sub     x2, x2, 1
+_cond:  cmp     x2, x1
+        bge     _loop
+        b       _ext
 
-4:      sub     x2, x2, 8
-5:      cmp     x2, x1
-        bgt     1b
-        b       7f
+_brk:   mov     x6, x2
 
-6:      mov     x7, x2
-
-7:      
-        ldr     x0, [sp], 16
+_ext:
         ldp     x29, x30, [sp], 16
-
-        sub     x0, x7, x0
-        lsr     x0, x0, 3
+        mov     x0, x6
         ret
-
+        
         .end

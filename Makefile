@@ -1,6 +1,6 @@
 CC = gcc
 
-FILES = main.s st_lsop3.s st_p.s
+FILES = main.s st_lsop.s st_p.s
 
 OUT = -o a
 
