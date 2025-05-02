@@ -7,7 +7,7 @@
 // x3 is the current character and then precedence of it
 // x4 is the br_o
 // x5 is l_sig
-// x6 is lsoi
+// x6 is lsoi, moved on x0 before return
 
 _st_lsop:
         stp     x29, x30, [sp, -16]!
