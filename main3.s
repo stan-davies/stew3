@@ -20,9 +20,8 @@ _main:
         ret
 
         .data
-        // z?
-_inf:   .ascii  "493"
-_pof:   .ascii  "aaa"
+_inf:   .asciz  "493"
+_pof:   .asciz  "aaa"
 _fmt:   .asciz  "got: '%ld'\n"
 
         .end
