@@ -45,27 +45,34 @@ _cond:  cmp     x1, x2
         b       _ext
 
 _psid:
-//        stp     x0, x1, [sp, -16]!
-//        stp     x2, x3, [sp, -16]!
-//        str     x4, [sp, -16]!
-//        sub     x2, x2, 1                
-//        bl      _st_proc
-//        ldr     x4, [sp], 16
-//        ldp     x2, x3, [sp], 16
-//        ldp     x0, x1, [sp], 16
+        // start: start
+        // end  : lsoi - 1
+        stp     x0, x1, [sp, -16]!
+        stp     x2, x3, [sp, -16]!
+        stp     x4, x5, [sp, -16]!
+        sub     x2, x5, 1                
+        bl      _st_proc
+        ldp     x4, x5, [sp], 16
+        ldp     x2, x3, [sp], 16
+        ldp     x0, x1, [sp], 16
 
-//        stp     x0, x1, [sp, -16]!
-//        stp     x3, x4, [sp, -16]!
-//        sub     x1, x1, 1
-//        bl      _st_proc
-//        ldp     x3, x4, [sp], 16
-//        ldp     x0, x1, [sp], 16
-//
-//        ldr     x6, [x3, x4]
-//        str     x6, [x3, x4]
-//        add     x4, x4, 1
+        // start: lsoi + 1
+        // end  : end
+        stp     x0, x1, [sp, -16]!
+        stp     x3, x4, [sp, -16]!
+        str     x5, [sp, -16]!
+        add     x1, x5, 1
+        bl      _st_proc
+        ldr     x5, [sp], 16
+        ldp     x3, x4, [sp], 16
+        ldp     x0, x1, [sp], 16
+
+        ldr     x6, [x0, x5]
+        str     x6, [x3, x4]
+        add     x4, x4, 1
 
 _ext:
+        mov     x0, x3
         ldp     x29, x30, [sp], 16
         ret
 
