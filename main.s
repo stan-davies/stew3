@@ -4,30 +4,23 @@
 _main:
         stp     x29, x30, [sp, -16]!
 
-        adrp    x0, _exp@PAGE
-        add     x0, x0, _exp@PAGEOFF
+        adrp    x0, _inf@PAGE
+        add     x0, x0, _inf@PAGEOFF
         mov     x1, 0
-        mov     x2, 12
-        bl      _st_lsop
+        mov     x2, 6
+        adrp    x3, _pof@PAGE
+        add     x3, x3, _pof@PAGEOFF
+        mov     x4, 0
+        bl      _st_proc
 
-        adrp    x1, _exp@PAGE
-        add     x1, x1, _exp@PAGEOFF
-//        ldr     x0, [x1, x0]
-        str     x0, [sp, -16]!          // Put data onto stack as paramter
-        adrp    x0, _fmt@PAGE
-        add     x0, x0, _fmt@PAGEOFF
-        bl      _printf
-        add     sp, sp, 16              // We need to change `sp` back but we
-                                        // don't care about the value we gave.
-                                        // Just add to `sp` then!
+        bl      _puts
 
         ldp     x29, x30, [sp], 16
-
-        mov     x0, xzr
         ret
 
         .data
+_inf:   .asciz  "554+673"
+_pof:   .asciz  "aaaaaaa"
 _fmt:   .asciz  "got: '%ld'\n"
-_exp:   .ascii  "3*(2-4)*(6/3)"
 
         .end
