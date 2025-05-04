@@ -1,11 +1,13 @@
 CC = gcc
 
-FILES = main.c tsta.s st_lsop.s st_p.s st_proc.s
+MAINF = main.c tsta.s 
 
-TESTS = tests/test1.s tests/test2.s tests/test3.s tests/test4.s
+STEWF = algor/st_lsop.s algor/st_p.s algor/st_proc.s
+
+TESTF = tests/test1.s tests/test2.s tests/test3.s tests/test4.s
 
 OUT = -o a
 
 all : compile
 compile:
-	@${CC} ${FILES} ${TESTS} ${OUT}
+	@${CC} ${MAINF} ${STEWF} ${TESTF} ${OUT}

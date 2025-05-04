@@ -8,13 +8,17 @@ int main() {
         clock_t toc;
         double  duration;
 
-        tic = clock();
-        for (int i = 0; i < 10; ++i) {
-                tsta();
+        for (int r = 0; r < 3; ++r) {
+                tic = clock();
+                for (int e = 0; e < 1000; ++e) {
+                        tsta();
+                }
+                toc = clock();
+                duration += (double)(toc - tic) / CLOCKS_PER_SEC;
         }
-        toc = clock();
 
-        duration = (double)(toc - tic) / CLOCKS_PER_SEC;
+        duration /= 3;
+
         printf("Time taken: %fs\n", duration);
         
         return 0;
