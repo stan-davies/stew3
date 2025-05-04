@@ -12,9 +12,4 @@ _tsta:
         ldp     x29, x30, [sp], 16
         ret
 
-        .data
-_inf:   .asciz  "7+(3*(2-6))"
-_pof:   .asciz  "aaaaaaaaaaa"
-_fmt:   .asciz  "got: '%ld'\n"
-
         .end

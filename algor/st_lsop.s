@@ -13,7 +13,7 @@ _st_lsop:
         stp     x29, x30, [sp, -16]!
 
         mov     x4, xzr
-        mov     x5, 10
+        mov     x5, 100
         mov     x6, -1
 
         b       _cond

@@ -10,7 +10,7 @@ int main() {
 
         for (int r = 0; r < 3; ++r) {
                 tic = clock();
-                for (int e = 0; e < 1000; ++e) {
+                for (int e = 0; e < 5000000; ++e) {
                         tsta();
                 }
                 toc = clock();
