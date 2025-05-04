@@ -5,8 +5,8 @@
 // x0 as expression string
 // x1 as expression start
 // x2 as expression end
-// x3 as output string
-// x4 as output write head
+// x3 as output string          - read as output
+// x4 as output write head      - read as output
 // locals
 // x5 as lsoi
 // x6 as current character
@@ -61,12 +61,12 @@ _psid:
         bl      _st_proc
         ldp     x1, x5, [sp], 16
 
+        // write operator
         ldr     x6, [x0, x5]
         str     x6, [x3, x4]
         add     x4, x4, 1
 
 _ext:
-        mov     x0, x3
         ldp     x29, x30, [sp], 16
         ret
 
